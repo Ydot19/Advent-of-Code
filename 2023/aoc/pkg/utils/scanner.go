@@ -1,4 +1,4 @@
-package day1
+package utils
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func NewScanner(fp string) (*bufio.Scanner, error)	 {
+func NewScannerFromFilePath(fp string) (*bufio.Scanner, error) {
 	f, err := os.Open(fp)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open fail: %w", err)

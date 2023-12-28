@@ -1,9 +1,7 @@
-#![allow(dead_code)]
-
 use std::collections::HashMap;
 use crate::trie::TrieNode;
 
-pub(crate) fn calibration_value(s: &str) -> Option<i32> {
+pub fn calibration_value(s: &str) -> Option<i32> {
     let n = s.len();
     let mut t: TrieNode = TrieNode::new();
     let mut left: Option<i32> = None;

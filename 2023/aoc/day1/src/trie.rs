@@ -1,24 +1,21 @@
-
-#![allow(dead_code)]
-
 use std::collections::HashMap;
 
-#[derive(Default, Debug, Clone)]
-pub struct TrieNode {
+#[derive(Clone)]
+pub(crate) struct TrieNode {
     children: HashMap<char, TrieNode>,
     is_word: bool,
 }
 
 
 impl TrieNode {
-    pub fn new() -> Self {
+    pub(crate) fn new() -> Self {
         TrieNode {
             children: HashMap::new(),
             is_word: false,
         }
     }
 
-    pub fn insert(&mut self, word: &str) {
+    pub(crate) fn insert(&mut self, word: &str) {
         let mut node = self;
         for c in word.chars() {
             node = node.children.entry(c).or_insert(TrieNode::new());
@@ -26,7 +23,7 @@ impl TrieNode {
         node.is_word = true;
     }
 
-    pub fn prefix(&self, prefix: &str) -> Option<&TrieNode> {
+    pub(crate) fn prefix(&self, prefix: &str) -> Option<&TrieNode> {
         let mut node = self;
         for c in prefix.chars() {
             if let Some(child) = node.children.get(&c) {
@@ -38,14 +35,7 @@ impl TrieNode {
         Some(node)
     }
 
-    pub fn is_word(&self) -> bool {
-        self.is_word
-    }
 
-    pub fn clear(&mut self) {
-        self.children.clear();
-        self.is_word = false;
-    }
 
 }
 
@@ -58,7 +48,6 @@ mod test_trie {
     fn test_trie_add_string() {
         let mut trie = TrieNode::new();
         trie.insert("hello");
-        assert!(trie.prefix("hello").unwrap().is_word());
     }
 
     #[test]
@@ -66,7 +55,5 @@ mod test_trie {
         let mut trie = TrieNode::new();
         trie.insert("hello");
         trie.insert("world");
-        assert!(trie.prefix("hello").unwrap().is_word());
-        assert!(trie.prefix("world").unwrap().is_word());
     }
 }

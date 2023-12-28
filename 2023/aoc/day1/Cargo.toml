@@ -5,4 +5,4 @@ rust-version = "1.74"
 
 [dependencies]
 clap = {workspace = true, features = ["derive"]}
-
+utils ={ path = "../pkg/utils" }

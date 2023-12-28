@@ -13,11 +13,12 @@ GOCLEAN=$(GOCMD) clean
 RUSTCMD=cargo
 RUSTBUILD=$(RUSTCMD) build --release --target-dir=$(BIN_DIR)
 
-.PHONY: generate-binary
+.PHONY: go-generate-binary
 go-generate-binary:
 	$(GOBUILD) -o $(OUTPUT) $(TARGET)
 	chmod +x $(OUTPUT)
 
+.PHONY: rust-generate-binary
 rust-generate-binary:
 	$(RUSTBUILD) 
 

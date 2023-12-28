@@ -3,6 +3,7 @@ package day1
 import (
 	"testing"
 
+	"github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -29,31 +30,31 @@ func TestCalibrationValue(t *testing.T) {
 			expected: 77,
 		},
 		{
-			val: "two1nine",
+			val:      "two1nine",
 			expected: 29,
 		},
 		{
-			val: "eightwothree",
+			val:      "eightwothree",
 			expected: 83,
 		},
 		{
-			val: "abcone2threexyz",
+			val:      "abcone2threexyz",
 			expected: 13,
 		},
 		{
-			val: "xtwone3four",
+			val:      "xtwone3four",
 			expected: 24,
 		},
 		{
-			val: "4nineeightseven2",
+			val:      "4nineeightseven2",
 			expected: 42,
 		},
 		{
-			val: "zoneight234",
+			val:      "zoneight234",
 			expected: 14,
 		},
 		{
-			val: "7pqrstsixteen",
+			val:      "7pqrstsixteen",
 			expected: 76,
 		},
 	}
@@ -67,7 +68,7 @@ func TestCalibrationValue(t *testing.T) {
 func TestSumOfCalibrationValues(t *testing.T) {
 	// arrange
 	fp := "../../fixtures/day1_sample.txt"
-	sc, err := NewScanner(fp)
+	sc, err := utils.NewScannerFromFilePath(fp)
 	require.NoError(t, err)
 
 	// act
@@ -80,7 +81,7 @@ func TestSumOfCalibrationValues(t *testing.T) {
 func TestSumOfCalibrationValues_WithStringNumbers(t *testing.T) {
 	// arrange
 	fp := "../../fixtures/day1_sample2.txt"
-	sc, err := NewScanner(fp)
+	sc, err := utils.NewScannerFromFilePath(fp)
 	require.NoError(t, err)
 
 	// act

@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/Ydot19/Advent-of-Code/2023/aoc/day1"
+	"github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/utils"
 )
 
 var (
@@ -19,7 +20,7 @@ func init() {
 func main() {
 	flag.Parse()
 
-	sc, err := day1.NewScanner(*filepath)
+	sc, err := utils.NewScannerFromFilePath(*filepath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
