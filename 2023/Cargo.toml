@@ -3,9 +3,11 @@ resolver = "2"
 members = [
     "aoc/day1",
     "aoc/day2", 
-    "aoc/pkg/utils"
+    "aoc/day3", 
 ]
 
 [workspace.dependencies]
-clap ={ version = "4.4.11"}
-
+clap = { version = "4.4.11" }
+regex = { version = "1.10.2" }
+lazy_static = { version = "1.4.0" }
+utils = { path = "./aoc/pkg/utils"}

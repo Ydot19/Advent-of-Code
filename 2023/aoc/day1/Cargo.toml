@@ -1,5 +1,5 @@
 [package]
-name = "day1_rust"
+name = "day1"
 version = "0.1.0"
 rust-version = "1.74"
 
