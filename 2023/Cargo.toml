@@ -4,6 +4,7 @@ members = [
     "aoc/day1",
     "aoc/day2", 
     "aoc/day3", 
+    "aoc/day4", 
 ]
 
 [workspace.dependencies]
