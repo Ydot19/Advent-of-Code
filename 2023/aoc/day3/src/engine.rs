@@ -411,7 +411,7 @@ mod test_engine {
     fn test_sample() {
         // arrange
         let mut engine = Engine::new();
-        let samle: [&str; 10] = [
+        let sample: [&str; 10] = [
             "467..114..",
             "...*......",
             "..35..633.",
@@ -424,7 +424,7 @@ mod test_engine {
             ".664.598.."
         ];
 
-        for s in &samle {
+        for s in &sample {
             _ = engine.add_line(s)
         }
 

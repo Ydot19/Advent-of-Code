@@ -1,7 +1,7 @@
 package day3
 
 import (
-	collections "github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/collections/slice"
+	"github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/collections/slices"
 	ds "github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/data_structure"
 )
 

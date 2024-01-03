@@ -1,6 +1,6 @@
 package datastructure
 
-import "github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/collections/slice"
+import "github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/collections/slices"
 
 type Deque[T any] struct {
 	items []T

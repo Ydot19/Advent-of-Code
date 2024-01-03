@@ -22,6 +22,19 @@ func ReduceFunc[T any, V Reducable] (accumulator func(acc V, element T) V) func(
 	}
 }
 
+func FilterFunc[T any] (original []T, criteria func(index int, element T) bool) []T {
+	filtered := make([]T, 0)
+	for i, el := range original {
+		if criteria(i, el) {
+			filtered = append(filtered, el)
+		}
+	}
+
+	return filtered
+} 
+
+
+
 func ApplyFunc[T any](mapper func(index int, element T) T) func(slice *[]T) {
 	return func(slice *[]T) {
 		if slice == nil {
@@ -36,15 +49,13 @@ func ApplyFunc[T any](mapper func(index int, element T) T) func(slice *[]T) {
 	}
 }
 
-func FromSlice[T any, V any](transform func(index int, element T) V) func([]T) []V {
-	return func(slice []T) []V {
-		var res []V
-		for i, element := range slice {
-			v := transform(i, element)
-			res = append(res, v)
-		}
 
-		return res
+
+func FromSlice[T any, V any](from []T, transform func(index int, element T) V) []V {
+	to := make([]V, len(from))
+	for i, el := range from {
+		to[i] = transform(i, el)
 	}
-	
+
+	return to
 }

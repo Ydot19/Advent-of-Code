@@ -4,7 +4,7 @@ import (
 	"math"
 	"strconv"
 
-	collections "github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/collections/slice"
+	"github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/collections/slices"
 	datastructure "github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/data_structure"
 )
 

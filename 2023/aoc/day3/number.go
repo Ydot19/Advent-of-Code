@@ -15,3 +15,7 @@ func NewNumber(val, row, start, end uint) *Number {
 		end_index: end,
 	}
 }
+
+func (n *Number) AsUint() uint {
+	return n.val
+}

@@ -3,6 +3,7 @@ package day3
 import (
 	"testing"
 
+	collections "github.com/Ydot19/Advent-of-Code/2023/aoc/pkg/collections/slices"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -58,5 +59,154 @@ func TestEngineAddLineGetNumber(t *testing.T) {
 }
 
 func TestSampleInput(t *testing.T) {
-	
+	// arrange
+	sample := []string{
+		"467..114..",
+		"...*......",
+		"..35..633.",
+		"......#...",
+		"617*......",
+		".....+.58.",
+		"..592.....",
+		"......755.",
+		"...$.*....",
+		".664.598..",
+	}
+
+	engine := NewEngine()
+	for _, str := range sample {
+		engine.AddLine(str)
+	}
+
+	// act
+	nums, err := engine.Numbers()
+	require.NoError(t, err)
+
+	validNums := collections.FilterFunc(nums, func(_ int, el *Number) bool {
+		return engine.AdjacentToSymbol(el)
+	})
+
+	// assert
+	res := collections.ReduceFunc(func(acc uint, el *Number) uint {
+		return acc + el.val
+	})(validNums)
+
+	assert.Equal(t, uint(4361), res)
+}
+
+func TestNumberAt(t *testing.T) {
+	// arrange
+	sample := []string{
+		"467..114..",
+		"...*......",
+		"..35..633.",
+		"......#...",
+		"617*......",
+		".....+.58.",
+		"..592.....",
+		"......755.",
+		"...$.*....",
+		".664.598..",
+		"..91....91",
+	}
+
+	engine := NewEngine()
+	for _, str := range sample {
+		engine.AddLine(str)
+	}
+
+	type scenario struct {
+		description string
+		row         int
+		col         int
+		evaluate    func(num *uint)
+	}
+
+	for _, scenario := range []scenario{
+		{
+			description: "case a - num (start)",
+			row:         0,
+			col:         0,
+			evaluate: func(num *uint) {
+				require.NotEmpty(t, num)
+				assert.Equal(t, uint(467), *num)
+			},
+		},
+		{
+			description: "case b - num (middle)",
+			row:         0,
+			col:         1,
+			evaluate: func(num *uint) {
+				require.NotEmpty(t, num)
+				assert.Equal(t, uint(467), *num)
+			},
+		},
+		{
+			description: "case c - num (end)",
+			row:         0,
+			col:         2,
+			evaluate: func(num *uint) {
+				require.NotEmpty(t, num)
+				assert.Equal(t, uint(467), *num)
+			},
+		},
+		{
+			description: "case d - not a number char",
+			row:         1,
+			col:         3,
+			evaluate: func(num *uint) {
+				require.Empty(t, num)
+			},
+		},
+		{
+			description: "case e - not a number char",
+			row:         99,
+			col:         0,
+			evaluate: func(num *uint) {
+				require.Empty(t, num)
+			},
+		},
+		{
+			description: "case f - not a number char",
+			row:         0,
+			col:         99,
+			evaluate: func(num *uint) {
+				require.Empty(t, num)
+			},
+		},
+		{
+			description: "case g - num",
+			row:         9,
+			col:         3,
+			evaluate: func(num *uint) {
+				require.NotEmpty(t, num)
+				assert.Equal(t, uint(664), *num)
+			},
+		},
+		{
+			description: "case h - num",
+			row:         9,
+			col:         6,
+			evaluate: func(num *uint) {
+				require.NotEmpty(t, num)
+				assert.Equal(t, uint(598), *num)
+			},
+		},
+		{
+			description: "case i - num (right edge)",
+			row:         10,
+			col:         9,
+			evaluate: func(num *uint) {
+				require.NotEmpty(t, num)
+				assert.Equal(t, uint(91), *num)
+			},
+		},
+	} {
+		t.Run(scenario.description, func(t *testing.T) {
+			// act
+			val := engine.NumberAt(scenario.row, scenario.col)
+			// assert
+			scenario.evaluate(val)
+		})
+	}
 }
