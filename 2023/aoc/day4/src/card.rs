@@ -1,4 +1,4 @@
-use std::{collections::{HashSet, HashMap}, borrow::Borrow};
+use std::collections::{HashSet, BTreeMap};
 
 pub(crate) struct Card {
     lucky_numbers: HashSet<usize>,
@@ -68,21 +68,35 @@ impl Card {
     }
 }
 
+
+
 pub(crate) fn calculate_number_of_scratch_cards(cards: Vec<Card>) -> usize {
-    let mut additional_card_instances: HashMap<usize, usize> = HashMap::new();
-    let mut curr_row: usize = 0;
-    let mut total: usize = 0;
+    let mut tracker: BTreeMap<usize, HashSet<usize>> = BTreeMap::new();
+    let mut index = 1;
     for card in cards.iter() {
         let scratches = card.number_of_scratch_cards();
-        total += scratches * (1 + additional_card_instances.get(curr_row.borrow()).unwrap_or(&0));
-        for i in curr_row+1..curr_row+1+scratches {
-            let next = additional_card_instances.get(i.borrow()).unwrap_or(&0);
-            additional_card_instances.insert(i, next+1);
-        }
-        curr_row += 1;
+        let vals: HashSet<usize> = (index+1..index+scratches+1).collect();
+        tracker.insert(index, vals.clone());
+        index += 1
     }
 
-    return total
+    let mut total = 0;
+    while tracker.len() > 0 {
+        if let Some((_, copies)) = tracker.pop_first() {
+            total += 1;
+            let mut queue = Vec::from_iter(copies.iter());
+            while queue.len() > 0 {
+                if let Some(popped) = queue.pop() {
+                    total += 1;
+                    if let Some(copies) = tracker.get(popped) {
+                        queue.extend(copies.iter());
+                    }
+                }
+            }
+        }
+    }
+
+    total
 }
 
 #[cfg(test)]

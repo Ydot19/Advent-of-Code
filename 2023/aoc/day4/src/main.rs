@@ -27,5 +27,6 @@ fn main() {
         points += card.calculate_points();
     }
 
-    println!("Part One: points = {}", points)
+    println!("Part One: points = {}", points);
+    println!("Part Two: total scratch cards = {}", card::calculate_number_of_scratch_cards(cards));
 }
